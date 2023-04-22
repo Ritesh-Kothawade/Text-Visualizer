@@ -22,6 +22,7 @@ matplotlib.use('Agg')
 # NLP packahes
 from wordcloud import WordCloud
 import nltk
+nltk.download('punkt')
 import spacy
 # nlp = en_core_web_sm.load()
 from spacy import displacy
