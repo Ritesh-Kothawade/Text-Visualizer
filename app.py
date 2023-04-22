@@ -23,7 +23,7 @@ matplotlib.use('Agg')
 from wordcloud import WordCloud
 import nltk
 import spacy
-# nlp = en_core_web_sm.load()
+nlp = en_core_web_sm.load()
 nlp = spacy.load('en_core_web_sm')
 from spacy import displacy
 
@@ -49,7 +49,7 @@ def plot_mendelhall_curve(docx):
     fig = plt.figure(figsize=(20, 10))
     plt.plot(x, y)
     plt.title("Plot of Word Length Distribution(Mendelhall Curve)")
-    plt.show()
+    #plt.show()
     st.pyplot(fig)
 
 
@@ -146,7 +146,7 @@ def main():
 
                 elif viz_choice == "Pos Tagger":
                     tagged_docx = generate_tags(raw_text)
-                    # st.write(tagged_docx)
+                    st.write(tagged_docx)
                     plot_pos_tags(tagged_docx)
                     t = TagVisualizer(raw_text)
                     stc.html(t.visualize_tags())
