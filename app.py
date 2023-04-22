@@ -23,6 +23,7 @@ matplotlib.use('Agg')
 from wordcloud import WordCloud
 import nltk
 nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 import spacy
 # nlp = en_core_web_sm.load()
 from spacy import displacy
