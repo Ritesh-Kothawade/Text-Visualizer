@@ -48,8 +48,7 @@ class TagVisualizer(object):
 
     def generate_tags(self):
         # tokens= nltk.word_tokenize(docx)
-        tagged_tokens = [[nltk.pos_tag(nltk.word_tokenize(i))]
-                         for i in self.text.split('.')]
+        tagged_tokens = [[nltk.pos_tag(nltk.word_tokenize(i))]for i in self.text.split('.')]
         return tagged_tokens
 
     def visualize_tags(self):
@@ -58,7 +57,7 @@ class TagVisualizer(object):
         for i in tagged_docx[0][0]:
             if i[1] in self.TAGS.keys():
                 token = i[0]
-                print(token)
+                # print(token)
                 color_for_tag = self.TAGS.get(i[1])
                 result = '<span style="color:{}">{}</span>'.format(
                     color_for_tag, token)

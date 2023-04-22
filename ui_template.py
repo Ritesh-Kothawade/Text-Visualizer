@@ -188,7 +188,4 @@ ul li:nth-child(3n) a{
     </ul>
 """
 
-HTML_WRAPPER = """ 
-  <div style=" border: 1px solid #e6e9ef; border-radius: 0.25rem; height: 100px ; width:600px;">
-  </div>
-"""
+HTML_WRAPPER = """<div style="overflo-x:auto border:1px solid #464e5f; border-radius:0.25rem"></div>"""

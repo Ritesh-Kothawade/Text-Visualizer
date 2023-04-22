@@ -1,10 +1,10 @@
 # core packages
-import en_core_web_sm
+# import en_core_web_sm
 import streamlit as st
 import streamlit.components.v1 as stc
 st.set_option('deprecation.showfileUploaderEncoding',False)
 st.set_option('deprecation.showPyplotGlobalUse', False)
-from ui_template import HTML_BANNER,HTML_BANNER_SKEWED,HTML_WRAPPER,HTML_STICKER
+from ui_template import HTML_BANNER, HTML_BANNER_SKEWED, HTML_WRAPPER, HTML_STICKER
 
 # EDA packages
 
@@ -23,9 +23,9 @@ matplotlib.use('Agg')
 from wordcloud import WordCloud
 import nltk
 import spacy
-nlp = en_core_web_sm.load()
-nlp = spacy.load('en_core_web_sm')
+# nlp = en_core_web_sm.load()
 from spacy import displacy
+nlp = spacy.load('en_core_web_sm')
 
 # Text Viz packages
 from tagvisualizer import TagVisualizer  
@@ -49,7 +49,7 @@ def plot_mendelhall_curve(docx):
     fig = plt.figure(figsize=(20, 10))
     plt.plot(x, y)
     plt.title("Plot of Word Length Distribution(Mendelhall Curve)")
-    #plt.show()
+    plt.show()
     st.pyplot(fig)
 
 
@@ -71,7 +71,7 @@ def plot_most_common_tokens(docx, num=10):
     fig = plt.figure(figsize=(20, 10))
     plt.bar(x, y)
     plt.title("Plot of Most Common Tokens")
-    #plt.show()
+    plt.show()
     st.pyplot(fig)
 
 
@@ -111,11 +111,12 @@ def main():
                 plot_mendelhall_curve(raw_text)
 
             elif viz_choice == "NER":
-                docx = nlp(raw_text)
-                html = displacy.render(docx, style="ent")
-                html = html.replace("\n\n", "\n")
-                result = HTML_WRAPPER.format(html)
-                stc.html(result)
+                doc = nlp(raw_text)
+                html = displacy.render(doc, style="ent")
+                # print(html)
+                # html = html.replace("\n\n", "\n")
+                #result = HTML_WRAPPER.format(html)
+                stc.html(html)
 
             else:
                 st.info("Text Visualizer")
@@ -155,8 +156,9 @@ def main():
                     plot_mendelhall_curve(raw_text)
 
                 elif viz_choice == "NER":
-                    docx = nlp(raw_text)
-                    html = displacy.render(docx, style="ent")
+                    doc = nlp(raw_text)
+                    html = displacy.render(doc, style="ent")
+                    # print(html)
                     html = html.replace("\n\n", "\n")
                     result = HTML_WRAPPER.format(html)
                     stc.html(result)
