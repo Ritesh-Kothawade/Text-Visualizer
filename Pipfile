@@ -13,6 +13,9 @@ matplotlib = "*"
 textblob = "*"
 streamlit = "*"
 neattext = "*"
+reqs = "*"
+httpx = "*"
+pipreqs = "*"
 
 [dev-packages]
 
