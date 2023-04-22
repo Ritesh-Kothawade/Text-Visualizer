@@ -1,5 +1,5 @@
 # core packages
-# import en_core_web_sm
+import en_core_web_sm
 import streamlit as st
 import streamlit.components.v1 as stc
 st.set_option('deprecation.showfileUploaderEncoding',False)
@@ -71,7 +71,7 @@ def plot_most_common_tokens(docx, num=10):
     fig = plt.figure(figsize=(20, 10))
     plt.bar(x, y)
     plt.title("Plot of Most Common Tokens")
-    plt.show()
+    #plt.show()
     st.pyplot(fig)
 
 
