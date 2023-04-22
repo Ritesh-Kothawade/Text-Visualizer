@@ -1,5 +1,5 @@
 # core packages
-# import en_core_web_sm
+import en_core_web_sm
 import streamlit as st
 import streamlit.components.v1 as stc
 st.set_option('deprecation.showfileUploaderEncoding',False)
@@ -17,7 +17,7 @@ from collections import Counter
 import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('Agg')
-# import altair as alt
+#import altair as alt
 
 # NLP packahes
 from wordcloud import WordCloud
