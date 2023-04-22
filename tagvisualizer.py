@@ -64,5 +64,5 @@ class TagVisualizer(object):
                     color_for_tag, token)
                 colored_text.append(result)
         result = ' '.join(colored_text)
-        print(result)
+        # print(result)
         return result

@@ -16,6 +16,7 @@ neattext = "*"
 reqs = "*"
 httpx = "*"
 pipreqs = "*"
+en-core-web-sm = "*"
 
 [dev-packages]
 
