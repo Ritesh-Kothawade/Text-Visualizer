@@ -1,4 +1,7 @@
 # core packages
+from sumy.summarizers.text_rank import TextRankSummarizer
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.parsers.plaintext import PlaintextParser
 import en_core_web_sm
 import streamlit as st
 import streamlit.components.v1 as stc
@@ -34,6 +37,13 @@ from tagvisualizer import TagVisualizer
 from yellowbrick.text import PosTagVisualizer
 # Fxn
 
+
+def summarize_text(text, num_sentences=3):
+    parser = PlaintextParser.from_string(text, Tokenizer("english"))
+    summarizer = TextRankSummarizer()
+    summary = summarizer(parser.document, num_sentences)
+    summarized_text = ' '.join(str(sentence) for sentence in summary)
+    return summarized_text
 
 def plot_wordcloud(docx):
     mywordcloud = WordCloud().generate(docx)
@@ -88,7 +98,7 @@ def plot_pos_tags(tagged_docx):
 def main():
     """Text Visualization NLP app"""
 
-    st.title("Text Visualizer NLP App")
+    st.title("Text visualization using NLP")
     menu = ["Home", "DropFiles", "About"]
     choice = st.sidebar.selectbox("Menu", menu)
 
@@ -96,9 +106,9 @@ def main():
         st.subheader("Home")
         raw_text = st.text_area("Enter Text Here")
         viz_task = ["Basic", "WordCloud",
-                    "Mendelhall Curve", "Pos Tagger", "NER"]
+                    "Mendelhall Curve", "Pos Tagger", "NER","Text Summarization"]
         viz_choice = st.sidebar.selectbox("Choice", viz_task)
-        if st.button("Visualize"):
+        if st.button("Process"):
             if viz_choice == "WordCloud":
                 plot_wordcloud(raw_text)
 
@@ -116,9 +126,13 @@ def main():
                 doc = nlp(raw_text)
                 html = displacy.render(doc, style="ent")
                 # print(html)
-                # html = html.replace("\n\n", "\n")
+                #html = html.replace("\n\n", "\n")
                 #result = HTML_WRAPPER.format(html)
-                stc.html(html)
+                stc.html(html,scrolling=True)
+
+            elif viz_choice == "Text Summarization":
+                summarized_text = summarize_text(raw_text)
+                st.write(summarized_text)
 
             else:
                 st.info("Text Visualizer")
@@ -161,9 +175,9 @@ def main():
                     doc = nlp(raw_text)
                     html = displacy.render(doc, style="ent")
                     # print(html)
-                    html = html.replace("\n\n", "\n")
-                    result = HTML_WRAPPER.format(html)
-                    stc.html(result)
+                    #html = html.replace("\n\n", "\n")
+                    #result = HTML_WRAPPER.format(html)
+                    stc.html(html,scrolling=True)
 
                 else:
                     st.info("Text Visualizer")
