@@ -15,7 +15,7 @@ import pandas as pd
 import neattext as nt
 import neattext.functions as nfx
 from collections import Counter
-
+import sumy
 # Data viz packages
 import matplotlib.pyplot as plt
 import matplotlib
@@ -178,6 +178,10 @@ def main():
                     #html = html.replace("\n\n", "\n")
                     #result = HTML_WRAPPER.format(html)
                     stc.html(html,scrolling=True)
+
+                elif viz_choice == "Text Summarization":
+                    summarized_text = summarize_text(raw_text)
+                    st.write(summarized_text)
 
                 else:
                     st.info("Text Visualizer")
