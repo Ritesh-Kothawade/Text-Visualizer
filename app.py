@@ -15,7 +15,6 @@ import pandas as pd
 import neattext as nt
 import neattext.functions as nfx
 from collections import Counter
-import sumy
 # Data viz packages
 import matplotlib.pyplot as plt
 import matplotlib
