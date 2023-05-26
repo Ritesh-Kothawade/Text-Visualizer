@@ -150,19 +150,20 @@ def main():
     elif choice == "DropFiles":
         st.subheader("Drag and Drop Files")
         raw_text_file = st.file_uploader("Upload Text Files", type=['txt'])
+        viz_task = ["Basic", "WordCloud",
+                    "Mendelhall Curve", "Pos Tagger", "NER", "Text Summarization"]
+        viz_choice = st.sidebar.selectbox("Choice", viz_task)
         if st.button("Visualize"):
             if raw_text_file is not None:
-                viz_task = ["Basic", "Wordcloud",
-                            "Mendelhall Curve", "Pos Tagger", "NER"]
-                viz_choice = st.sidebar.selectbox("Choice", viz_task)
-                raw_text = raw_text_file.read()
+                file_text = raw_text_file.read()
+                raw_text = file_text.decode('utf-8')
                 st.write(raw_text)
                 if viz_choice == "WordCloud":
                     plot_wordcloud(raw_text)
 
                 elif viz_choice == "Pos Tagger":
                     tagged_docx = generate_tags(raw_text)
-                    st.write(tagged_docx)
+                    # st.write(tagged_docx)
                     plot_pos_tags(tagged_docx)
                     t = TagVisualizer(raw_text)
                     stc.html(t.visualize_tags())
@@ -174,9 +175,9 @@ def main():
                     doc = nlp(raw_text)
                     html = displacy.render(doc, style="ent")
                     # print(html)
-                    #html = html.replace("\n\n", "\n")
-                    #result = HTML_WRAPPER.format(html)
-                    stc.html(html,scrolling=True)
+                    # html = html.replace("\n\n", "\n")
+                    # result = HTML_WRAPPER.format(html)
+                    stc.html(html, scrolling=True)
 
                 elif viz_choice == "Text Summarization":
                     summarized_text = summarize_text(raw_text)
