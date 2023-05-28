@@ -24,12 +24,12 @@ matplotlib.use('Agg')
 # NLP packahes
 from wordcloud import WordCloud
 import nltk
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
+#nltk.download('punkt')
+#nltk.download('averaged_perceptron_tagger')
 import spacy
 # nlp = en_core_web_sm.load()
 from spacy import displacy
-nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load('en_core_web_lg')
 
 # Text Viz packages
 from tagvisualizer import TagVisualizer  
