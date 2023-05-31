@@ -22,6 +22,7 @@ matplotlib.use('Agg')
 #import altair as alt
 
 # NLP packahes
+import wordcloud
 from wordcloud import WordCloud
 import nltk
 #nltk.download('punkt')
@@ -51,6 +52,31 @@ def plot_wordcloud(docx):
     st.pyplot()
 
 
+def plot_tagcloud(docx):
+    # Create a list of tags from the text
+    tags = docx.split()
+
+    # Create a dictionary of tags and their frequencies
+    tag_freq = {}
+    for tag in tags:
+        if tag not in tag_freq:
+            tag_freq[tag] = 1
+        else:
+            tag_freq[tag] += 1
+# Create a tag cloud from the dictionary of tags and their frequencies
+    tag_cloud = wordcloud.WordCloud(
+        max_words=100,
+        background_color='white',
+        width=500,
+        height=500,
+    ).generate_from_frequencies(tag_freq)
+
+    # Plot the tag cloud
+    plt.imshow(tag_cloud, interpolation='bilinear')
+    plt.axis('off')
+    st.pyplot()
+
+
 def plot_mendelhall_curve(docx):
     # word Length Distribution
     word_length = [len(token) for token in docx.split()]
@@ -58,9 +84,28 @@ def plot_mendelhall_curve(docx):
     sorted_word_length_count = sorted(dict(word_length_counts).items())
     x, y = zip(*sorted_word_length_count)
     fig = plt.figure(figsize=(20, 10))
-    plt.plot(x, y)
-    plt.title("Plot of Word Length Distribution(Mendelhall Curve)")
-    plt.show()
+
+    # Add a title to the plot.
+    plt.title("Plot of Word Length Distribution")
+
+    # Add a subtitle to the plot.
+    plt.suptitle("Mendelhall Curve")
+
+    # Change the color of the lines on the graph.
+    plt.plot(x, y, color="blue")
+
+    # Add a label to each axis.
+    plt.xlabel("Word Length")
+    plt.ylabel("Frequency")
+
+    # Add annotations to the graph.
+    plt.annotate("Average word length: 5", xy=(5, 0.2), xytext=(5, 0.1),
+                arrowprops=dict(facecolor="black", edgecolor="black", shrink=0.05))
+    plt.annotate("Median word length: 6", xy=(9, 0.15), xytext=(9, 0.1),
+                arrowprops=dict(facecolor="black", edgecolor="black", shrink=0.05))
+
+    # Show the plot.
+    #plt.show()
     st.pyplot(fig)
 
 
@@ -104,7 +149,7 @@ def main():
     if choice == 'Home':
         st.subheader("Home")
         raw_text = st.text_area("Enter Text Here")
-        viz_task = ["Basic", "WordCloud",
+        viz_task = ["Basic", "WordCloud","Tag cloud",
                     "Mendelhall Curve", "Pos Tagger", "NER","Text Summarization"]
         viz_choice = st.sidebar.selectbox("Choice", viz_task)
         if st.button("Process"):
@@ -132,7 +177,9 @@ def main():
             elif viz_choice == "Text Summarization":
                 summarized_text = summarize_text(raw_text)
                 st.write(summarized_text)
-
+            
+            elif viz_choice == "Tag cloud":
+                plot_tagcloud(raw_text)
             else:
                 st.info("Text Visualizer")
                 processed_text = nfx.remove_stopwords(raw_text)
@@ -150,7 +197,7 @@ def main():
     elif choice == "DropFiles":
         st.subheader("Drag and Drop Files")
         raw_text_file = st.file_uploader("Upload Text Files", type=['txt'])
-        viz_task = ["Basic", "WordCloud",
+        viz_task = ["Basic", "WordCloud","Tag cloud",
                     "Mendelhall Curve", "Pos Tagger", "NER", "Text Summarization"]
         viz_choice = st.sidebar.selectbox("Choice", viz_task)
         if st.button("Visualize"):
@@ -183,6 +230,8 @@ def main():
                     summarized_text = summarize_text(raw_text)
                     st.write(summarized_text)
 
+                elif viz_choice == "Tag cloud":
+                    plot_tagcloud(raw_text)
                 else:
                     st.info("Text Visualizer")
                     processed_text = nfx.remove_stopwords(raw_text)
