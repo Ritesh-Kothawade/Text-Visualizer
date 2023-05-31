@@ -2,7 +2,7 @@
 from sumy.summarizers.text_rank import TextRankSummarizer
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.parsers.plaintext import PlaintextParser
-import en_core_web_sm
+import en_core_web_lg
 import streamlit as st
 import streamlit.components.v1 as stc
 st.set_option('deprecation.showfileUploaderEncoding',False)
