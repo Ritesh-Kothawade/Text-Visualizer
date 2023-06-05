@@ -142,7 +142,7 @@ def plot_pos_tags(tagged_docx):
 def main():
     """Text Visualization NLP app"""
 
-    st.title("Text visualization using NLP")
+    st.title("TextSight")
     menu = ["Home", "DropFiles", "About"]
     choice = st.sidebar.selectbox("Menu", menu)
 
